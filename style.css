@@ -89,7 +89,7 @@ img {
 
 .word span {
     display: inline-block;
-    font-size: 3rem;
+    font-size: 2.4rem;
     margin: 0 6px;
     color: white;
     text-transform: uppercase;
@@ -192,13 +192,13 @@ img {
     }
     
     .start-button {
-        font-size: 4rem;
+        font-size: 3.2rem;
     }
     .category, .category span {
         font-size: 2.8rem;
     }
     
-    .word {
+    .word span {
         font-size: 3.6rem;
     }
     .keyboard {

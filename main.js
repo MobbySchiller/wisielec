@@ -1,3 +1,4 @@
+// DOM ELEMENTS
 const elements = {
     titleSign: document.querySelector(".title"),
     startBtn: document.querySelector(".start-button"),
@@ -11,12 +12,11 @@ const elements = {
     restartBtn: document.querySelector(".play-again-button")
 }
 
+// DATA BASE
 const lists = {
     keys: [...document.querySelectorAll(".key")],
     words: ["polska", "niemcy", "wielka brytania", "stany zjednoczone", "erytrea", "zimbabwe", "zjednoczone emiraty arabskie", "san marino", "korea południowa", "kazachstan", "argentyna", "honduras", "norwegia", "mongolia", "budapeszt", "kraków", "frankfurt", "dekarz", "tokarz", "nauczyciel", "programista", "aktor", "kaskader", "kierowca", "skazani na shawshank", "batman", "christian bale", "tomasz karolak", "scenariusz", "forrest gump", "tom hanks", "anna hathaway", "kapitan ameryka", "dwunastu ludzi gniewnych", "ojciec chrzestny", "pulp fiction", "władca pierścieni", "cezary pazura", "max verstappen", "iga świątek", "roger federer", "rafael nadal", "novak djoković", "agnieszka radwańska", "robert lewandowski", "lionel messi", "cristiano ronaldo", "siatkówka plażowa", "kombinacja norweska", "skoki narciarskie", "kamil stoch", "łyżwiarstwo figurowe", "spaghetti", "durszlak", "maggi", "ramen", "kotlet schabowy", "mizeria", "hamburger"],
     cat: ["państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","miasto","miasto","miasto","zawód","zawód","zawód","zawód","zawód","zawód","zawód","film","film","film","film","film","film","film","film","film","film","film","film","film","film","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","kuchnia","kuchnia","kuchnia","kuchnia","kuchnia","kuchnia","kuchnia"],
-    guessWordLetters: [],
-    spans: []
 }
 
 const guess = {
@@ -30,23 +30,7 @@ const stats = {
     point: 0
 }
 
-function clearGame() {
-    guess.word = "";
-    guess.wordLetters.length = "0";
-    guess.spans.length = "0";
-    elements.wordSpan.textContent = "";
-    stats.number = 0;
-    stats.point = 0;
-    elements.img.src = `img/mistake${stats.number}.jpg`;
-}
-
-function displayWord(index) {
-        const newSpan = document.createElement("span");
-        newSpan.textContent = guess.word.charAt(index);
-        guess.spans.push(newSpan);
-        elements.wordSpan.appendChild(newSpan);
-}
-
+// DRAW WORD
 function drawWord() {
     clearGame();
     const index = Math.floor(Math.random() * lists.words.length);
@@ -62,14 +46,27 @@ function drawWord() {
     elements.categorySpan.textContent = guessCategory;
 };
 
+// DISPLAYS THE DRAWN WORD ON THE SCREEN
+function displayWord(index) {
+    const newSpan = document.createElement("span");
+    newSpan.textContent = guess.word.charAt(index);
+    guess.spans.push(newSpan);
+    elements.wordSpan.appendChild(newSpan);
+};
 
+// GETING THE SELECTED LETTER
+function typer() {
+    lists.keys.forEach(key => key.addEventListener('click', checkLetter));
+};
+
+// CHECKING THE LETTER
 function checkLetter(e) {
     const userPick = e.target.textContent;
     e.target.classList.add("disappear");
 
     if ((guess.wordLetters.indexOf(userPick) < 0) && (stats.number < 12)) {
         elements.img.src = `img/mistake${++stats.number}.jpg`;
-    }
+    };
     
     const searching = guess.wordLetters.map(letter => letter == userPick);
 
@@ -78,22 +75,34 @@ function checkLetter(e) {
         if (searching[i] == true) {
             guess.spans[i].classList.add("visible");
             stats.point++;
-        };
-};
-window.setTimeout(checkResult, 3000);
+        }
+    };
+    checkResult();
 };
 
+// CHECKING YOUR PROGRESS
 function checkResult() {
     if (stats.number < 12 && stats.point == guess.word.split(" ").join("").length) {
-        elements.gameResult.textContent = "WYGRAŁEŚ!"
-        endGame();
+        elements.gameResult.textContent = "WYGRANA!"
+        window.setTimeout(endGame, 2000);
     } else if (stats.number == 12) {
-        elements.gameResult.textContent = "PRZEGRAŁEŚ!"
-        lists.spans.forEach(letter => letter.classList.add("visible"));
-        endGame();
+        elements.gameResult.textContent = "PRZEGRANA"
+        window.setTimeout(endGame, 2000);
     }
 };
 
+// PREPARATION FOR THE NEXT GAME
+function clearGame() {
+    guess.word = "";
+    guess.wordLetters.length = "0";
+    guess.spans.length = "0";
+    elements.wordSpan.textContent = "";
+    stats.number = 0;
+    stats.point = 0;
+    elements.img.src = `img/mistake${stats.number}.jpg`;
+};
+
+// START FIRST GAME
 function startGame() {
     elements.titleSign.classList.add("active");
     elements.startBtn.classList.add("started");
@@ -103,6 +112,7 @@ function startGame() {
     drawWord();
 };
 
+// END GAME
 function endGame() {
     elements.endGameDisplay.classList.add("visible");
     elements.titleSign.classList.add("blur");
@@ -111,6 +121,7 @@ function endGame() {
     typer();
 };
 
+// RESTART GAME
 function restartGame() {
     lists.keys.forEach(key => key.classList.remove("disappear"));
     elements.endGameDisplay.classList.remove("visible");
@@ -119,10 +130,7 @@ function restartGame() {
 
     typer();
     drawWord();
-}
+};
 
-function typer() {
-    lists.keys.forEach(key => key.addEventListener('click', checkLetter));
-}
 elements.startBtn.addEventListener('click', startGame);
 elements.restartBtn.addEventListener('click', restartGame);
