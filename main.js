@@ -83,12 +83,16 @@ function checkLetter(e) {
 // CHECKING YOUR PROGRESS
 function checkResult() {
     if (stats.number < 12 && stats.point == guess.word.split(" ").join("").length) {
-        elements.gameResult.textContent = "WYGRANA!"
-        window.setTimeout(endGame, 2000);
+        showResult("WYGRANA!");
     } else if (stats.number == 12) {
-        elements.gameResult.textContent = "PRZEGRANA"
-        window.setTimeout(endGame, 2000);
+        showResult("PRZEGRANA!");
     }
+};
+
+function showResult(text) {
+    window.setTimeout(endGame, 2000);
+    lists.keys.forEach(key => key.removeEventListener('click', checkLetter));
+    elements.gameResult.textContent = text;
 };
 
 // PREPARATION FOR THE NEXT GAME
@@ -117,8 +121,6 @@ function endGame() {
     elements.endGameDisplay.classList.add("visible");
     elements.titleSign.classList.add("blur");
     elements.gameDisplay.classList.add("blur");
-    
-    typer();
 };
 
 // RESTART GAME
