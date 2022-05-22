@@ -1,0 +1,217 @@
+/* font-family: 'Inconsolata', monospace;
+font-family: 'Macondo', cursive; */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 10px;
+}
+
+body {
+    background-color: black;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Inconsolata', monospace;;
+    overflow: hidden;
+}
+
+.title {
+    position: fixed;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 5rem;
+    font-family: 'Macondo', cursive;
+    text-transform: uppercase;
+    transition: .6s;
+}
+
+.title.active {
+    top: 15px;
+    transform: translate(-50%, 0);
+    font-size: 3rem;
+}
+
+.start-button {
+    position: fixed;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8px 12px;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: 2.4rem;
+    transition: .6s;
+}
+
+.start-button:hover, .play-again-button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.start-button.started {
+    display: none;
+}
+
+.game-display {
+    position: absolute;
+    top: 100vh;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    transition: .6s;
+}
+
+.game-display.go-up {
+    top: 0;
+}
+
+img {
+    display: block;
+    height: 35%;
+    margin: 10vh auto 0;
+    border: 1px solid white;
+}
+
+.category, .category span, .word { 
+    text-align: center;
+    margin: 2.4vh 0;
+    color: white;
+}
+
+.category, .category span {
+    font-size: 2.2rem;
+}
+
+.word span {
+    display: inline-block;
+    font-size: 3rem;
+    margin: 0 6px;
+    color: white;
+    text-transform: uppercase;
+    visibility: hidden;
+}
+
+.word span.visible {
+    visibility: visible;
+}
+
+.word span::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    visibility: visible;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 320px;
+    margin: 0 auto;
+}
+
+.key {
+    width: 35px;
+    height: 35px;
+    margin: 4px;
+    box-shadow: 0 0 0 2px white;
+    border-radius: 15px;
+    background-color: transparent;
+    color: white;
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 35px;
+}
+
+.key.disappear {
+    visibility: hidden;
+}
+
+.key:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.end-game {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95vw;
+    max-width: 750px;
+    height: 60vh;
+    max-height: 400px;
+    background-color: black;
+    border: 2px solid white;
+    visibility: hidden;
+}
+
+.end-game.visible {
+    visibility: visible;
+}
+
+.result {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 4.8rem;
+    text-transform: uppercase;
+}
+
+.play-again-button {
+    position: absolute;
+    top: 62%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8px 12px;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: 2.6rem;
+}
+
+.blur {
+    filter: blur(10px);
+}
+
+
+@media (min-width: 768px) {
+    .title {
+        font-size: 8rem;
+    }
+    
+    .start-button {
+        font-size: 4rem;
+    }
+    .category, .category span {
+        font-size: 2.8rem;
+    }
+    
+    .word {
+        font-size: 3.6rem;
+    }
+    .keyboard {
+        width: 400px;
+    }
+    .key {
+        width: 40px;
+        height: 40px;
+        margin: 6px;
+        line-height: 40px;
+    }
+}
+
+
+
+
