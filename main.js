@@ -19,12 +19,14 @@ const lists = {
     cat: ["państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","państwo","miasto","miasto","miasto","zawód","zawód","zawód","zawód","zawód","zawód","zawód","film","film","film","film","film","film","film","film","film","film","film","film","film","film","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","sport","kuchnia","kuchnia","kuchnia","kuchnia","kuchnia","kuchnia","kuchnia"],
 }
 
+// A GUESS WORD IN STRING, EVERY SINGLE LETTER IN ARRAY AND THEIR SPANS
 const guess = {
     word: "",
     wordLetters: [],
     spans: []
 }
 
+// STATISTICS
 const stats = {
     number: 0,
     point: 0
@@ -39,7 +41,7 @@ function drawWord() {
     for (let i = 0; i < guess.word.length; i++) {
         guess.wordLetters.push(guess.word.charAt(i));
 
-        displayWord(i)
+        displayWord(i);
     };
 
     const guessCategory = lists.cat[index];
@@ -75,7 +77,7 @@ function checkLetter(e) {
         if (searching[i] == true) {
             guess.spans[i].classList.add("visible");
             stats.point++;
-        }
+        };
     };
     checkResult();
 };
@@ -85,12 +87,19 @@ function checkResult() {
     if (stats.number < 12 && stats.point == guess.word.split(" ").join("").length) {
         showResult("WYGRANA!");
     } else if (stats.number == 12) {
+        autofillWord()
         showResult("PRZEGRANA!");
     }
 };
 
+// AUTOCOMPLETE GUESSING WORD AFTER LOSS
+function autofillWord() {
+    guess.spans.forEach(span => span.classList.add("visible"));
+}
+
+// SHOW YOUR RESULT WIN OR LOSS
 function showResult(text) {
-    window.setTimeout(endGame, 2000);
+    window.setTimeout(endGame, 3000);
     lists.keys.forEach(key => key.removeEventListener('click', checkLetter));
     elements.gameResult.textContent = text;
 };
@@ -134,5 +143,6 @@ function restartGame() {
     drawWord();
 };
 
+// EVENT LISTENERS
 elements.startBtn.addEventListener('click', startGame);
 elements.restartBtn.addEventListener('click', restartGame);
